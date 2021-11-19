@@ -20,6 +20,7 @@ public class SqlFunctions {
 
     private String username;
     private String name;
+    private String score;
 
     /**
      *
@@ -77,8 +78,7 @@ public class SqlFunctions {
     public String getUsername() {
         return username;
     }
-    
-    
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -99,9 +99,9 @@ public class SqlFunctions {
         }
         this.name = name;
         this.username = uname;
-        
+
         saveUserToFile();//save username to file
-        
+
         JOptionPane.showMessageDialog(null, "Player: " + name + "  Created Successfully");
 
     }
@@ -149,7 +149,7 @@ public class SqlFunctions {
 
         try {
             FileWriter myWriter = new FileWriter("src\\GameEngine\\user.txt");
-            myWriter.write(getUsername());
+            myWriter.write(getUsername() + "\n0");
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
@@ -158,7 +158,7 @@ public class SqlFunctions {
         }
 
     }
-    
+
     public String readFromFile() {
         String data = null;
         try {
@@ -166,7 +166,8 @@ public class SqlFunctions {
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 data = myReader.nextLine();
-                System.out.println("Data in file - "+data);
+                score = myReader.nextLine();
+                System.out.println("Data in file - " + data);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -175,6 +176,34 @@ public class SqlFunctions {
         }
 
         return data;
+    }
+
+    public void saveScoreToDb(String user, String score) {
+        try {
+            connection.setData("insert into time(username,time) value( '" + user + "','" + score + "')");
+            System.out.println("Time Saved to DB");
+        } catch (Exception ex) {
+            Logger.getLogger(SqlFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+
+    }
+
+    public static String getMinTime(String user) {
+
+        String minTime = null;
+        try {
+
+            ResultSet rs = connection.getData("SELECT MIN(time) AS besttime FROM time WHERE username='" + user + "'");
+            while (rs.next()) {
+                minTime = rs.getString("besttime");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return minTime;
+
     }
 
 }
