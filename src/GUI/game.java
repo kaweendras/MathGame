@@ -33,8 +33,8 @@ public class game extends javax.swing.JFrame {
      */
     int i = 1;
     ButtonGroup Answers = new ButtonGroup();
-    GameEngine G1 = new GameEngine("Player1");
     SqlFunctions S1 = new SqlFunctions();
+    GameEngine G1 = new GameEngine(S1.readFromFile());
     Boolean given_answer = false;
 
     public game() throws MalformedURLException, IOException {
