@@ -31,35 +31,27 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     GameEngine G1 = new GameEngine("Player1");
     SqlFunctions S1 = new SqlFunctions();
-        
-    
+
     public NewJFrame() throws IOException {
         initComponents();
         setImg();
         getq(1);
-        
 
-    
     }
-    
-    
-    
-     void setImg() throws MalformedURLException, IOException{
-        Image image =null;
-        
+
+    void setImg() throws MalformedURLException, IOException {
+        Image image = null;
+
         String newUrl = G1.getNextImg().toString();
-         System.out.println(newUrl);
-        
+        System.out.println(newUrl);
+
         jLabel1.setIcon(new ImageIcon(newUrl));
     }
-     
-     
-     void getq(int k){
-     String question = S1.getQuestion(k);
-     jLabel2.setText(question);
-     }
-    
-    
+
+    void getq(int k) {
+        String question = S1.getQuestion(k);
+        jLabel2.setText(question);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,10 +122,10 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         try {
             setImg();
-            getq(G1.getCounter()-1);
+            getq(G1.getCounter() - 1);
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -8,9 +8,12 @@ package GUI;
 import GameEngine.SqlFunctions;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 /**
@@ -188,12 +191,22 @@ public class register extends javax.swing.JFrame {
         SqlFunctions f1 = new SqlFunctions();
         
         if(jTextField3.getText().equals(jTextField1.getText())){
-            f1.Register(jTextField2.getText(), jTextField4.getText(), jTextField3.getText());
+           try {
+               f1.Register(jTextField2.getText(), jTextField4.getText(), jTextField3.getText());
+           } catch (IOException ex) {
+               Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+           }
             try {
             new Main().setVisible(true);
         } catch (MalformedURLException ex) {
             Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  catch (LineUnavailableException ex) {
+               Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IOException ex) {
+               Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (UnsupportedAudioFileException ex) {
+               Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }else{
             JOptionPane.showMessageDialog(null, "Passwords are not matching. Please try again!!!");
             new register().setVisible(true);

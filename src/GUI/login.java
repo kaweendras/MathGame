@@ -8,9 +8,12 @@ package GUI;
 import GameEngine.SqlFunctions;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 /**
@@ -210,7 +213,13 @@ public class login extends javax.swing.JFrame {
             new Main().setVisible(true);
         } catch (MalformedURLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  catch (LineUnavailableException ex) {
+               Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (IOException ex) {
+               Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (UnsupportedAudioFileException ex) {
+               Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+           }
        }else{
            JOptionPane.showMessageDialog(null,"Wrong Login info try again...");  
        }
@@ -228,7 +237,13 @@ public class login extends javax.swing.JFrame {
             new Main().setVisible(true);
         } catch (MalformedURLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }   catch (LineUnavailableException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
        }else{
            JOptionPane.showMessageDialog(null,"Wrong Login info try again...");  
        }
