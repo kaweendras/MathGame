@@ -15,6 +15,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -29,61 +31,58 @@ public class game extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    
-    int i =1;
+    int i = 1;
     ButtonGroup Answers = new ButtonGroup();
     GameEngine G1 = new GameEngine("Player1");
     SqlFunctions S1 = new SqlFunctions();
-    Boolean given_answer =false;
-    
+    Boolean given_answer = false;
+
     public game() throws MalformedURLException, IOException {
-        
-        
+
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         addRadioButtons();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         setImg(i);
         getq(i);
         setQuestionnuber(i);
         i++;
-        
+
     }
-    void setImg(int i) throws MalformedURLException, IOException{
-        Image image =null;
-        
+
+    void setImg(int i) throws MalformedURLException, IOException {
+        Image image = null;
+
         String newUrl = G1.getNextImg(i).toString();
-         System.out.println(i);
-        
-       jLabel1.setIcon(new ImageIcon(newUrl));
-        
+        System.out.println(i);
+
+        jLabel1.setIcon(new ImageIcon(newUrl));
+
     }
-    
-    void getq(int k){
-     String question = S1.getQuestion(k);
-     jLabel4.setText(question);
-     }
-    
-    
-    void addRadioButtons(){
-      jRadioButton2.setActionCommand("7");
-      jRadioButton1.setActionCommand("5");
-      jRadioButton4.setActionCommand("3");
-      jRadioButton3.setActionCommand("1");
-      
-        
+
+    void getq(int k) {
+        String question = S1.getQuestion(k);
+        jLabel4.setText(question);
+    }
+
+    void addRadioButtons() {
+        jRadioButton2.setActionCommand("7");
+        jRadioButton1.setActionCommand("5");
+        jRadioButton4.setActionCommand("3");
+        jRadioButton3.setActionCommand("1");
+
         Answers.add(jRadioButton1);
         Answers.add(jRadioButton2);
         Answers.add(jRadioButton3);
         Answers.add(jRadioButton4);
-        
+
         jRadioButton2.setSelected(true);
     }
-    
-    void setQuestionnuber(int k){
-    jLabel2.setText("Quention - ["+k+"]");
+
+    void setQuestionnuber(int k) {
+        jLabel2.setText("Quention - [" + k + "]");
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -300,33 +299,41 @@ public class game extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        
+
         try {
-            if(S1.getAnswer(i-1).equals(Answers.getSelection().getActionCommand()) ){
+            if (S1.getAnswer(i - 1).equals(Answers.getSelection().getActionCommand())) {
                 System.out.println("Correct");
-                System.out.println("Your Answe "+Answers.getSelection().getActionCommand());
-                System.out.println("Correct Answer "+S1.getAnswer(i-1));
-                given_answer =true;
-            }else{
+                System.out.println("Your Answe " + Answers.getSelection().getActionCommand());
+                System.out.println("Correct Answer " + S1.getAnswer(i - 1));
+                given_answer = true;
+            } else {
                 System.out.println("wrong");
-                given_answer =false;
+                given_answer = false;
             }
-            
-            if(given_answer){
-                if(i<=10){
-                setImg(i);
-                getq(i);
-                i++;
-                System.out.println("Selected Answer is "+Answers.getSelection().getActionCommand());
-                setQuestionnuber(i-1);
-            }else{
-                this.dispose();
-                new game_over().setVisible(true);
-            }
-            }else{
-                JOptionPane.showMessageDialog(null,"Wrong Answer. Try again...");
+
+            if (given_answer) {
+                if (i <= 10) {
+                    setImg(i);
+                    G1.playAudio("jump");
+                    getq(i);
+                    i++;
+                    System.out.println("Selected Answer is " + Answers.getSelection().getActionCommand());
+                    setQuestionnuber(i - 1);
+                } else {
+                    this.dispose();
+                    new game_over().setVisible(true);
+                    G1.playAudio("win");
+                }
+            } else {
+                G1.playAudio("wrong");
+                JOptionPane.showMessageDialog(null, "Wrong Answer. Try again...");
+
             }
         } catch (IOException ex) {
+            Logger.getLogger(game.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(game.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jLabel3MouseClicked
