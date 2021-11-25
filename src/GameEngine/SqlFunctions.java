@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Yashodha Godage This Class contains all the methods related to
+ * @author Yashodha Hansimali Godage 
+ * 
+ * This Class contains all the methods related to
  * SQL/Database
  */
 public class SqlFunctions {
@@ -23,11 +25,11 @@ public class SqlFunctions {
     private String score;
 
     /**
-     *
-     * @param username
-     * @param password Login take two parameters and check them in the database
+     * Login take two parameters and check them in the database
      * to see the whether the user is already exist in the database
-     * @return
+     * @param username username
+     * @param password password
+     * @return True/False
      */
     public boolean login(String username, String password) {
         boolean b = false;
@@ -63,7 +65,7 @@ public class SqlFunctions {
      *
      * Returns the Name of the Logged user
      *
-     * @return
+     * @return name
      */
     public String getName() {
         return name;
@@ -73,22 +75,27 @@ public class SqlFunctions {
      *
      * Returns the Username of the Logged user
      *
-     * @return
+     * @return username
      */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * set the username of the logged in user
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
     /**
-     *
-     * @param uname
-     * @param name
-     * @param Password Register function takes 3 parameters and create a new
+     * Register function takes 3 parameters and create a new
      * user by entering the above mentioned data to the database.
+     * @param uname username
+     * @param name player's name
+     * @param Password password
+     * @throws java.io.IOException
      */
     public void Register(String uname, String name, String Password) throws IOException {
         try {
@@ -106,6 +113,12 @@ public class SqlFunctions {
 
     }
 
+    /**
+     * takes the number as the question ID and returns the
+     * corresponding question in the database as a String
+     * @param qid question Id
+     * @return question
+     */
     public String getQuestion(int qid) {
         String question = null;
         try {
@@ -121,6 +134,12 @@ public class SqlFunctions {
         return question;
     }
 
+    /**
+     * takes the number as the question ID and returns the
+     * corresponding Answer in the database as a String
+     * @param qid question ID
+     * @return Answer
+     */
     public String getAnswer(int qid) {
         String answer = null;
         try {
@@ -136,6 +155,11 @@ public class SqlFunctions {
         return answer;
     }
 
+    /**
+     * takes the logged in user as a parameter and saves it to the
+     * file
+     * @throws IOException
+     */
     public void saveUserToFile() throws IOException {
 
         File file = new File("src\\GameEngine\\user.txt");
@@ -159,6 +183,11 @@ public class SqlFunctions {
 
     }
 
+    /**
+     * returns the user stored in the file
+     * as a String
+     * @return
+     */
     public String readFromFile() {
         String data = null;
         try {
@@ -178,6 +207,12 @@ public class SqlFunctions {
         return data;
     }
 
+    /**
+     * Takes the user and score as parameters and
+     * save the score/time in the database
+     * @param user logged user's username
+     * @param score total time
+     */
     public void saveScoreToDb(String user, String score) {
         try {
             connection.setData("insert into time(username,time) value( '" + user + "','" + score + "')");
@@ -189,6 +224,11 @@ public class SqlFunctions {
 
     }
 
+    /**
+     * Returns the best recorded time of an user
+     * @param user username
+     * @return Minimum Time
+     */
     public static String getMinTime(String user) {
 
         String minTime = null;

@@ -25,7 +25,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Kaweendra
+ * @author Yashodha Hansimali Godage 
  */
 public class Main extends javax.swing.JFrame {
 
@@ -41,15 +41,22 @@ public class Main extends javax.swing.JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setusername();
         setMainGif();
-       // playAudioStart();
+       
         
     }
     
+     /**
+     * Set the username to label
+     */
     void setusername(){
     
     jLabel2.setText("Welcome "+getUsername());
     }
     
+     /**
+     * Plays the Audio
+     * @param fileName Audio File name
+     */
      void playAudio(String fileName) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         File Audio = new File("src\\Audio\\"+fileName+".wav");
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(Audio);
@@ -59,19 +66,21 @@ public class Main extends javax.swing.JFrame {
 
     }
      
-     void playAudioStart() throws LineUnavailableException, IOException, UnsupportedAudioFileException{
+
      
-         while(true){
-             //playAudio("1desert");
-            // playAudio("1hawk");
-         }
-     }
-     
+     /**
+     * Sets the main image
+     */
      void setMainGif(){
         
         jLabel1.setIcon(new ImageIcon("src\\GUI_IMG\\main.gif"));
          System.out.println();
      }
+     
+     /**
+     * get username of the logged in user
+     * @return username
+     */
     
      String getUsername(){
      String data = s1.readFromFile();
@@ -101,11 +110,12 @@ public class Main extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(750, 530));
-        setMinimumSize(new java.awt.Dimension(750, 530));
+        setMaximumSize(new java.awt.Dimension(952, 534));
+        setMinimumSize(new java.awt.Dimension(952, 534));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(44, 20, 45));
+        jPanel1.setToolTipText("");
 
         jPanel2.setBackground(new java.awt.Color(81, 10, 50));
 
@@ -258,7 +268,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(22, 22, 22))
                     .addGroup(jPanel1Layout.createSequentialGroup()

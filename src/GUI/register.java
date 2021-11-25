@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Kaweendra
+ * @author Yashodha Hansimali Godage 
  */
 public class register extends javax.swing.JFrame {
 

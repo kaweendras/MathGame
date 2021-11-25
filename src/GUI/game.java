@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Yashodha Hansimali
+ * @author Yashodha Hansimali Godage
  */
 public class game extends javax.swing.JFrame {
 
@@ -42,7 +42,7 @@ public class game extends javax.swing.JFrame {
     SqlFunctions S1 = new SqlFunctions();
     GameEngine G1 = new GameEngine(S1.readFromFile());
     Boolean given_answer = false;
-    private int interval ;
+    private int interval;
     private java.util.Timer timer;
 
     public game() throws MalformedURLException, IOException {
@@ -56,10 +56,12 @@ public class game extends javax.swing.JFrame {
         setQuestionnuber(i);
         i++;
         startTimer(60);
-        
 
     }
-
+     /**
+     * Read username from the text file
+     * @return username
+     */
     String readFromFile() {
         String data = null;
         try {
@@ -78,7 +80,11 @@ public class game extends javax.swing.JFrame {
         return data;
 
     }
-
+    
+    /**
+    * Set image to the label
+    * @param i image number
+    */
     void setImg(int i) throws MalformedURLException, IOException {
         Image image = null;
 
@@ -88,7 +94,10 @@ public class game extends javax.swing.JFrame {
         jLabel1.setIcon(new ImageIcon(newUrl));
 
     }
-
+     /**
+     * set question to label
+     * @param  k question number
+     */
     void getq(int k) {
         String question = S1.getQuestion(k);
         jLabel4.setText(question);
@@ -131,24 +140,18 @@ public class game extends javax.swing.JFrame {
                 jLabel7.setText("00:" + setInterval());
                 if (interval <= 30) {
                     jLabel7.setForeground(Color.red);
-                    
+
                 } else if (interval <= 0) {
-                    
+
                     cancel();
-                    
 
                 }
-                
 
             }
-            
-            
-        }, delay, period);
-        
-        
-    }
 
-  
+        }, delay, period);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,6 +232,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jPanel3.setBackground(new java.awt.Color(238, 69, 64));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -383,11 +391,11 @@ public class game extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
 
         try {
-            if(interval==0){
+            if (interval == 0) {
                 this.dispose();
                 new exit().setVisible(true);
             }
-            
+
             if (S1.getAnswer(i - 1).equals(Answers.getSelection().getActionCommand())) {
                 System.out.println("Correct");
                 System.out.println("Your Answe " + Answers.getSelection().getActionCommand());
@@ -430,6 +438,57 @@ public class game extends javax.swing.JFrame {
             Logger.getLogger(game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+
+        try {
+            if (interval == 0) {
+                this.dispose();
+                new exit().setVisible(true);
+            }
+
+            if (S1.getAnswer(i - 1).equals(Answers.getSelection().getActionCommand())) {
+                System.out.println("Correct");
+                System.out.println("Your Answe " + Answers.getSelection().getActionCommand());
+                System.out.println("Correct Answer " + S1.getAnswer(i - 1));
+                given_answer = true;
+            } else {
+                System.out.println("wrong");
+                given_answer = false;
+            }
+
+            if (given_answer) {
+                if (i <= 10) {
+                    setImg(i);
+                    G1.playAudio("jump");
+                    getq(i);
+                    i++;
+                    System.out.println("Selected Answer is " + Answers.getSelection().getActionCommand());
+                    setQuestionnuber(i - 1);
+                    G1.setTotalTime(60 - interval);
+                    interval = 60;
+                } else {
+                    this.dispose();
+                    G1.saveUserToFile(readFromFile(), Integer.toString(G1.getTotalTime()));
+                    S1.saveScoreToDb(readFromFile(), G1.formatTime(G1.getTotalTime()));//save to database
+                    System.out.println("Total time " + G1.formatTime(G1.getTotalTime()));
+                    new game_over().setVisible(true);
+                    G1.playAudio("win");
+
+                }
+            } else {
+                G1.playAudio("wrong");
+                JOptionPane.showMessageDialog(null, "Wrong Answer. Try again...");
+
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(game.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(game.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jPanel3MouseClicked
 
     /**
      * @param args the command line arguments

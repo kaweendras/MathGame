@@ -20,7 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
- * @author Kaweendra
+ * @author Yashodha Hansimali Godage 
  */
 public class game_over extends javax.swing.JFrame {
 

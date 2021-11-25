@@ -15,17 +15,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Salitha Kaweendra
+ * @author Yashodha Hansimali Godage 
  */
 
 public class connection {
     
-   // public static String adminship;
-    public static String admin;
+  
     
     public static Connection c;
 
+    /**
+     *
+     * @return connection
+     * @throws Exception
+     * creates the connection for the MySQL server
+     */
     public static Connection getConnection() throws Exception {
         if (c == null) {
             Class.forName("com.mysql.jdbc.Driver");
@@ -36,23 +40,32 @@ public class connection {
     }
 
     // Send data TO Database
+
+    /**
+     * takes a SQL query to insert or update records
+     * @param sql Query
+     * @throws Exception
+     * 
+     */
     public static void setData(String sql) throws Exception {
         connection.getConnection().createStatement().executeUpdate(sql);
     }
 
     // Get Data From Datavase
+
+    /**
+     * takes a SQl query and return records from the database
+     * @param sql query
+     * @return
+     * @throws Exception
+     
+     */
     public static ResultSet getData(String sql) throws Exception {
         ResultSet rs = connection.getConnection().createStatement().executeQuery(sql);
         return rs;
     }
     
-    void showDate(){
-        Date d =new Date();
-        System.out.println(d);
-        SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
-        String date = adf.format(d);
-        
-    }
+   
     
     
     

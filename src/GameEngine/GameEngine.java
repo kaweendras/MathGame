@@ -23,7 +23,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author Kaweesha
+ * @author Yashodha Hansimali Godage
  */
 public class GameEngine {
 
@@ -34,21 +34,36 @@ public class GameEngine {
     /**
      * Each player has their own game engine.
      *
-     * @param player
+     * @param player - player's username
      */
     public GameEngine(String player) {
         thePlayer = player;
         counter = 1;
     }
+
+    /**
+     * Constructor creates an instance of the
+     * class
+     */
     public GameEngine() {
         thePlayer = this.thePlayer;
         counter = 1;
     }
 
+    /**
+     * getCounter method returns the
+     * counter value.
+     * @return - counter
+     */
     public int getCounter() {
         return counter;
     }
 
+    /**
+     * This method returns the next image
+     * to the game GUI and increase the counter
+     * @return
+     */
     public String getNextImg() {
         String Img1 = null;
 
@@ -59,27 +74,51 @@ public class GameEngine {
         return Img1;
     }
 
+    /**
+     * This method returns the next image
+     * to the game GUI and increase the counter
+     * and it takes the image number as a parameter
+     * @param i next image number
+     * @return image URL
+     */
     public String getNextImg(int i) {
         String Img1 = null;
         if (true) {
 
             Img1 = "src\\Question_IMG\\" + i + ".gif";
-            //System.out.println(counter);
             counter++;
         }
         return Img1;
     }
 
+    /**
+     * Takes the time from the game
+     * and adds it to the total time
+     * @param time - Time(Number)
+     */
     public void setTotalTime(int time) {
 
         this.totalTime = this.totalTime + time;
     }
 
+    /**
+     * Returns the total time
+     * @return time(Number)
+     */
     public int getTotalTime() {
 
         return this.totalTime;
     }
 
+    /**
+     * Method takes the File name of the audio file and 
+     * plays the audio one time.
+     * @param fileName name of the audio file
+     * @throws LineUnavailableException
+     * @throws IOException
+     * @throws UnsupportedAudioFileException
+
+     */
     public void playAudio(String fileName) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         File Audio = new File("src\\Audio\\" + fileName + ".wav");
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(Audio);
@@ -89,6 +128,11 @@ public class GameEngine {
 
     }
 
+    /**
+     * Returns the players time stored in the
+     * text file and returns it as the score
+     * @return Time(String)
+     */
     public String getTimeFromFile() {
 
         String data = null;
@@ -110,6 +154,14 @@ public class GameEngine {
         return score;
     }
 
+    /**
+     * Store the logged in user's user name
+     * in the text file. The method will delete the file
+     * if its exists to clear the data of the previous user
+     * @param username username
+     * @param score time/score
+     * @throws IOException
+     */
     public void saveUserToFile(String username, String score) throws IOException {
 
         File file = new File("src\\GameEngine\\user.txt");
@@ -133,6 +185,14 @@ public class GameEngine {
 
     }
 
+    /**
+     *
+     * This method take the total time as Seconds
+     * converts it to minutes and seconds then returns it
+     * @param time time in seconds
+     * @return time in Minutes and Seconds
+     * 
+     */
     public String formatTime(int time) {
         int min = 0;
         int sec = 0;

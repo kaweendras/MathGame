@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Kaweendra
+ * @author Yashodha Hansimali Godage 
  */
 public class stats extends javax.swing.JFrame {
 

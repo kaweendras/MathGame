@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Kaweendra
+ * @author Yashodha Hansimali Godage 
  */
 public class graph extends javax.swing.JFrame {
 
