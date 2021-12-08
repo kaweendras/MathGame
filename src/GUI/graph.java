@@ -6,6 +6,7 @@
 package GUI;
 
 import API.google_image_charts;
+import GameEngine.SqlFunctions;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -29,6 +30,14 @@ public class graph extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    
+    
+    //Creating an Object of API class
+    google_image_charts g1 = new google_image_charts();
+    
+    //crating and Object of SqlFunctins Class
+    SqlFunctions s1 = new SqlFunctions();
+    
     public graph() throws MalformedURLException, IOException {
         
         
@@ -41,8 +50,29 @@ public class graph extends javax.swing.JFrame {
     
     void setApi() throws MalformedURLException, IOException{
         Image image =null;
-        google_image_charts g1 = new google_image_charts();
-        URL url = new URL(g1.getApi("60", "10", "10", "20", "40-50", "50-60", "60-70", "Above 70"));
+        
+        int d1,d2,d3,d4 =0;
+        String arr[] = s1.apidata();
+        
+        d1 = Integer.parseInt(arr[0]);
+        d2 = Integer.parseInt(arr[1]);
+        d3 = Integer.parseInt(arr[2]);
+        d4 = Integer.parseInt(arr[3]);
+        
+        
+        int sum = d1+d2+d3+d4;
+        
+        int per = 100/sum;
+        
+        
+        d1 = d1*sum;
+        d2 = d2*sum;
+        d3 = d3*sum;
+        d4 = d4*sum;
+        
+        
+        
+        URL url = new URL(g1.getApi(""+d1, ""+d2, ""+d3, ""+d4, ">3:00", "02:00-03:00", "01:00-02:00", "<1:00"));
         image = ImageIO.read(url);
         jLabel4.setIcon(new ImageIcon(image));
     }
@@ -132,8 +162,8 @@ public class graph extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

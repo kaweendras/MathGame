@@ -245,5 +245,47 @@ public class SqlFunctions {
         return minTime;
 
     }
+    
+    /**
+     *This function gets time ranges from database and returns them in
+     * a String Array
+     * @return arr[] (String Array)
+     */
+    public static String[] apidata(){
+        
+        String[] arr = new String[4];
+        
+        try {
+
+            ResultSet rs1 = connection.getData("SELECT count(tid) AS tid FROM time WHERE time > '03:00:00'");
+            ResultSet rs2 = connection.getData("SELECT count(tid) AS tid FROM time WHERE time between '02:00:00' AND '03:00:00'");
+            ResultSet rs3 = connection.getData("SELECT count(tid) AS tid FROM time WHERE time between '01:00:00' AND '02:00:00'");
+            ResultSet rs4 = connection.getData("SELECT count(tid) AS tid FROM time WHERE time < '01:00:00'");
+            
+            while (rs1.next()) {
+                arr[0] = rs1.getString("tid");
+            }
+            while (rs2.next()) {
+                arr[1] = rs2.getString("tid");
+            }
+            while (rs3.next()) {
+                arr[2] = rs3.getString("tid");
+            }
+            while (rs4.next()) {
+                arr[3] = rs4.getString("tid");
+            }
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+        
+        
+        return arr;
+    
+    }
 
 }

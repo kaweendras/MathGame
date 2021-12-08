@@ -153,6 +153,33 @@ public class GameEngine {
 
         return score;
     }
+    
+    
+    /**
+     * Store the logged in user's score(Total TIme) name
+     * in the text file.
+     * @param score time/score
+     * @throws IOException
+     */
+    public void saveScoreToFile(String score) throws IOException {
+
+        File file = new File("src\\GameEngine\\user.txt");
+        
+
+        //creating file
+        file.createNewFile();
+
+        try {
+            FileWriter myWriter = new FileWriter("src\\GameEngine\\user.txt");
+            myWriter.write((this.thePlayer) + "\n" + score);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Store the logged in user's user name

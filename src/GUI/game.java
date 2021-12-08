@@ -37,10 +37,25 @@ public class game extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    
+    //Creating an object of SqlFunctions Class
+    SqlFunctions S1 = new SqlFunctions();
+    
+    
+    //Creating an object of GameEngine class
+    GameEngine G1 = new GameEngine(S1.readFromFile());
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
     int i = 1;
     ButtonGroup Answers = new ButtonGroup();
-    SqlFunctions S1 = new SqlFunctions();
-    GameEngine G1 = new GameEngine(S1.readFromFile());
     Boolean given_answer = false;
     private int interval;
     private java.util.Timer timer;
@@ -409,7 +424,7 @@ public class game extends javax.swing.JFrame {
             if (given_answer) {
                 if (i <= 10) {
                     setImg(i);
-                    G1.playAudio("jump");
+                    G1.playAudio("jump"); //calling PlayAudio() function from GameEngine
                     getq(i);
                     i++;
                     System.out.println("Selected Answer is " + Answers.getSelection().getActionCommand());

@@ -30,7 +30,7 @@ public class google_image_charts {
 
      */
     public String getApi(String d1,String d2,String d3,String d4,String v1,String v2,String v3,String v4){
-        String api = "https://chart.googleapis.com/chart?chs=500x200&chd=t:"+d1+","+d2+","+d3+","+d4+"&cht=p3&chl="+d1+"|"+d2+"|"+d3+"|"+d4+"";
+        String api = "https://chart.googleapis.com/chart?chs=500x200&chd=t:"+d1+","+d2+","+d3+","+d4+"&cht=p3&chl="+v1+"|"+v2+"|"+v3+"|"+v4+"";
         return api;
     }
 
